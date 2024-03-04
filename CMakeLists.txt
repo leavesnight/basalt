@@ -392,38 +392,40 @@ target_include_directories(basalt PUBLIC ${CMAKE_CURRENT_SOURCE_DIR}/include)
 target_compile_definitions(basalt PUBLIC ${BASALT_COMPILE_DEFINITIONS})
 #target_compile_definitions(basalt PUBLIC BASALT_DISABLE_ASSERTS)
 
+find_package(Pangolin REQUIRED)
+message(STATUS "${PROJECT_NAME} Pangolin_INCLUDE_DIRS=${Pangolin_INCLUDE_DIRS}; LIBS=${Pangolin_LIBRARIES}; ${Pangolin_VERSION}")
 
 add_executable(basalt_calibrate src/calibrate.cpp src/calibration/cam_calib.cpp)
-target_link_libraries(basalt_calibrate basalt pangolin basalt::cli11)
+target_link_libraries(basalt_calibrate basalt basalt::cli11 ${Pangolin_LIBRARIES})#pangolin basalt::cli11)
 
 add_executable(basalt_calibrate_imu src/calibrate_imu.cpp src/calibration/cam_imu_calib.cpp)
-target_link_libraries(basalt_calibrate_imu basalt pangolin basalt::cli11)
+target_link_libraries(basalt_calibrate_imu basalt basalt::cli11 ${Pangolin_LIBRARIES})#pangolin basalt::cli11)
 
 
 add_executable(basalt_vio_sim src/vio_sim.cpp)
-target_link_libraries(basalt_vio_sim basalt pangolin basalt::cli11)
+target_link_libraries(basalt_vio_sim basalt basalt::cli11 ${Pangolin_LIBRARIES}) #pangolin basalt::cli11)
 
 add_executable(basalt_mapper_sim src/mapper_sim.cpp)
-target_link_libraries(basalt_mapper_sim basalt pangolin basalt::cli11)
+target_link_libraries(basalt_mapper_sim basalt basalt::cli11 ${Pangolin_LIBRARIES}) #pangolin basalt::cli11)
 
 # mapper sim native doesn't use template free interface
 if(BASALT_INSTANTIATIONS_DOUBLE)
   add_executable(basalt_mapper_sim_naive src/mapper_sim_naive.cpp)
-  target_link_libraries(basalt_mapper_sim_naive basalt pangolin basalt::cli11)
+  target_link_libraries(basalt_mapper_sim_naive basalt basalt::cli11 ${Pangolin_LIBRARIES}) #pangolin basalt::cli11)
 endif()
 
 add_executable(basalt_mapper src/mapper.cpp)
-target_link_libraries(basalt_mapper basalt pangolin basalt::cli11)
+target_link_libraries(basalt_mapper basalt basalt::cli11 ${Pangolin_LIBRARIES}) #pangolin basalt::cli11)
 
 
 add_executable(basalt_opt_flow src/opt_flow.cpp)
-target_link_libraries(basalt_opt_flow basalt pangolin basalt::cli11)
+target_link_libraries(basalt_opt_flow basalt basalt::cli11 ${Pangolin_LIBRARIES}) #pangolin basalt::cli11)
 
 add_executable(basalt_vio src/vio.cpp)
-target_link_libraries(basalt_vio basalt pangolin basalt::cli11)
+target_link_libraries(basalt_vio basalt basalt::cli11 ${Pangolin_LIBRARIES}) #pangolin basalt::cli11)
 
 add_executable(basalt_time_alignment src/time_alignment.cpp)
-target_link_libraries(basalt_time_alignment basalt pangolin basalt::cli11)
+target_link_libraries(basalt_time_alignment basalt basalt::cli11 ${Pangolin_LIBRARIES}) #pangolin basalt::cli11)
 
 add_executable(basalt_kitti_eval src/kitti_eval.cpp)
 target_link_libraries(basalt_kitti_eval basalt::basalt-headers basalt::cli11)
@@ -431,10 +433,10 @@ target_link_libraries(basalt_kitti_eval basalt::basalt-headers basalt::cli11)
 find_package(realsense2 QUIET)
 if(realsense2_FOUND)
   add_executable(basalt_rs_t265_record src/rs_t265_record.cpp src/device/rs_t265.cpp)
-  target_link_libraries(basalt_rs_t265_record basalt realsense2::realsense2 pangolin basalt::cli11)
+  target_link_libraries(basalt_rs_t265_record basalt realsense2::realsense2 basalt::cli11 ${Pangolin_LIBRARIES}) #pangolin basalt::cli11)
 
   add_executable(basalt_rs_t265_vio src/rs_t265_vio.cpp src/device/rs_t265.cpp)
-  target_link_libraries(basalt_rs_t265_vio basalt realsense2::realsense2 pangolin basalt::cli11)
+  target_link_libraries(basalt_rs_t265_vio basalt realsense2::realsense2 basalt::cli11 ${Pangolin_LIBRARIES}) #pangolin basalt::cli11)
 endif()
 
 

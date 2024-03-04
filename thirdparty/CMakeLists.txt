@@ -41,7 +41,7 @@ macro(include)
     _include(${ARGN})
   endif()
 endmacro()
-add_subdirectory(Pangolin EXCLUDE_FROM_ALL)
+#add_subdirectory(Pangolin EXCLUDE_FROM_ALL)
 
 
 # fix aprilgrid
@@ -64,7 +64,7 @@ target_compile_options(opengv PRIVATE
 
 # fix pangolin: gcc
 if(CMAKE_CXX_COMPILER_ID STREQUAL "GNU")
-  target_compile_options(pangolin PRIVATE "-Wno-implicit-fallthrough")
+#  target_compile_options(pangolin PRIVATE "-Wno-implicit-fallthrough")
 endif()
 
 # fix pangolin: macOS
@@ -109,7 +109,7 @@ endif()
 
 # fix pangolin: GCC >= 9.0
 if(CMAKE_CXX_COMPILER_ID STREQUAL "GNU" AND CMAKE_CXX_COMPILER_VERSION VERSION_GREATER_EQUAL 9.0)
-  target_compile_options(pangolin PRIVATE "-Wno-stringop-truncation;-Wno-deprecated-copy")
+#  target_compile_options(pangolin PRIVATE "-Wno-stringop-truncation;-Wno-deprecated-copy")
 endif()
 
 # fix pangolin: GCC >= 10.0
@@ -119,7 +119,7 @@ endif()
 
 # check here the directories for the pangolin and opengv targets, and
 # confirm that the eigen-related include dirs match.
-foreach(_target opengv pangolin)
+foreach(_target opengv )#pangolin)
   get_target_property(_include_dirs ${_target} INTERFACE_INCLUDE_DIRECTORIES)
   foreach(_dir IN LISTS _include_dirs)
     if("${_dir}" MATCHES ".*/eigen3?(/unsupported)?$")
@@ -135,7 +135,7 @@ endforeach()
 # source folder. Thus, we update the property to only include these
 # eigen paths in the "BUILD_INTERFACE" (not "INSTALL").
 if (EIGEN3_INCLUDE_DIR MATCHES "^${CMAKE_SOURCE_DIR}.*")
-  foreach(_target opengv pangolin)
+  foreach(_target opengv )#pangolin)
     get_target_property(_include_dirs ${_target} INTERFACE_INCLUDE_DIRECTORIES)
     set(_include_dirs_new "")
     foreach(_dir IN LISTS _include_dirs)
