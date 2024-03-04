@@ -13,7 +13,7 @@ struct ApriltagDetectorData {
         maxSubpixDisplacement(0),
         minTagsForValidObs(4),
         minBorderDistance(4.0),
-        blackTagBorder(1), // 2
+        blackTagBorder(2),
         _tagCodes(AprilTags::tagCodes36h11),
         _numTags(numTags) {
     _tagDetector =
