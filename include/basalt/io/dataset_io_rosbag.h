@@ -243,6 +243,7 @@ class RosbagIO : public DatasetIoInterface {
         sensor_msgs::ImageConstPtr img_msg =
             m.instantiate<sensor_msgs::Image>();
         int64_t timestamp_ns = img_msg->header.stamp.toNSec();
+        timestamp_ns = (int64_t)round(timestamp_ns / 1e6) * 1e6;
 
         auto &img_vec = data->image_data_idx[timestamp_ns];
         if (img_vec.size() == 0) img_vec.resize(data->num_cams);
